@@ -1,0 +1,175 @@
+
+@prefix lotr:   <http://example.org/lotr/> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================
+# Subclasses and Subproperties
+# ============================================
+
+lotr:Character rdfs:subClassOf foaf:Person .
+lotr:Place rdfs:equivalentClass schema:Place .
+lotr:Faction rdfs:subClassOf schema:Organization .
+lotr:leader rdfs:subPropertyOf schema:owner .
+
+# ============================================
+# Races
+# ============================================
+
+lotr:Elfo a lotr:Race ;
+    rdfs:label "Elfo" ;
+    lotr:longevity "9999"^^xsd:integer ;
+    schema:knowsLanguage "Sindarin" .
+
+lotr:Humano a lotr:Race ;
+    rdfs:label "Humano" ;
+    lotr:longevity "90"^^xsd:integer ;
+    schema:knowsLanguage "Oestron" .
+
+lotr:Hobbit a lotr:Race ;
+    rdfs:label "Hobbit" ;
+    lotr:longevity "130"^^xsd:integer ;
+    schema:knowsLanguage "Oestron" .
+
+lotr:Maia a lotr:Race ;
+    rdfs:label "Maia" ;
+    lotr:longevity "9999"^^xsd:integer ;
+    schema:knowsLanguage "Valarin" .
+
+lotr:Enano a lotr:Race ;
+    rdfs:label "Enano" ;
+    lotr:longevity "250"^^xsd:integer ;
+    schema:knowsLanguage "Khuzdul" .
+
+# ============================================
+# Places
+# ============================================
+
+lotr:Edoras a lotr:Place ;
+    rdfs:label "Edoras" ;
+    schema:containedInPlace lotr:Rohan .
+
+lotr:Comarca a lotr:Place ;
+    rdfs:label "La Comarca" ;
+    schema:containedInPlace lotr:PueblosLibres .
+
+lotr:MinasTirith a lotr:Place ;
+    rdfs:label "Minas Tirith" ;
+    schema:containedInPlace lotr:Gondor .
+
+lotr:PuertaNegra a lotr:Place ;
+    rdfs:label "La Puerta Negra" ;
+    schema:containedInPlace lotr:Mordor .
+
+lotr:Mirkwood a lotr:Place ;
+    rdfs:label "Mirkwood" ;
+    schema:containedInPlace lotr:ReinoDelBosque .
+
+# ============================================
+# Factiones
+# ============================================
+
+lotr:Isengard a lotr:Faction ;
+    rdfs:label "Isengard" ;
+    lotr:leader lotr:Saruman ;
+    lotr:ally lotr:Mordor ;
+    lotr:enemy lotr:LaComunidadDelAnillo , lotr:Rohan , lotr:ReinoDelBosque .
+
+lotr:LaComunidadDelAnillo a lotr:Faction ;
+    rdfs:label "La Comunidad del Anillo" ;
+    lotr:leader lotr:Gandalf ;
+    lotr:ally lotr:Gondor , lotr:Rohan , lotr:ReinoDelBosque ;
+    lotr:enemy lotr:Mordor , lotr:Isengard .
+
+lotr:Mordor a lotr:Faction ;
+    rdfs:label "Mordor" ;
+    lotr:leader lotr:Sauron ;
+    lotr:ally lotr:Isengard ;
+    lotr:enemy lotr:LaComunidadDelAnillo , lotr:Gondor , lotr:Rohan , lotr:ReinoDelBosque .
+
+lotr:Gondor a lotr:Faction ;
+    rdfs:label "Gondor" ;
+    lotr:leader lotr:Denethor ;
+    lotr:ally lotr:LaComunidadDelAnillo , lotr:Rohan , lotr:ReinoDelBosque ;
+    lotr:enemy lotr:Mordor .
+
+lotr:Rohan a lotr:Faction ;
+    rdfs:label "Rohan" ;
+    lotr:leader lotr:Theoden ;
+    lotr:ally lotr:LaComunidadDelAnillo , lotr:Gondor , lotr:ReinoDelBosque ;
+    lotr:enemy lotr:Mordor , lotr:Isengard .
+
+lotr:ReinoDelBosque a lotr:Faction ;
+    rdfs:label "Reino del Bosque" ;
+    lotr:leader lotr:Thranduil ;
+    lotr:ally lotr:LaComunidadDelAnillo , lotr:Gondor , lotr:Rohan ;
+    lotr:enemy lotr:Mordor , lotr:Isengard .
+
+# ============================================
+# Characters
+# ============================================
+
+lotr:Frodo a lotr:Character ;
+    rdfs:label "Frodo" ;
+    foaf:givenName "Frodo" ;
+    foaf:familyName "Bolson" ;
+    lotr:Race  lotr:Hobbit ;
+    schema:birthplace lotr:Comarca ;
+    schema:affiliation lotr:LaComunidadDelAnillo .
+
+lotr:Gimli a lotr:Character ;
+    rdfs:label "Gimli" ;
+    foaf:givenName "Gimli" ;
+    lotr:Race  lotr:Enano ;
+    schema:birthplace lotr:Erebor ;
+    schema:affiliation lotr:LaComunidadDelAnillo .
+
+lotr:Aragorn a lotr:Character ;
+    rdfs:label "Aragorn" ;
+    foaf:givenName "Aragorn" ;
+    schema:alternateName "Trancos" , "Elessar" ;
+    lotr:Race  lotr:Humano ;
+    schema:birthplace lotr:Rivendell ;
+    schema:affiliation lotr:LaComunidadDelAnillo , lotr:Gondor .
+
+lotr:Gandalf a lotr:Character ;
+    rdfs:label "Gandalf" ;
+    foaf:givenName "Gandalf" ;
+    schema:alternateName "Mithrandir" , "el Gris" ;
+    lotr:Race  lotr:Maia ;
+    schema:birthplace lotr:Valinor ;
+    schema:affiliation lotr:LaComunidadDelAnillo .
+
+lotr:Sauron a lotr:Character ;
+    rdfs:label "Suaron" ;
+    foaf:givenName "Sauron" ;
+    schema:alternateName "Mairon" ;
+    lotr:Race  lotr:Maia ;
+    schema:birthplace lotr:Valinor ;
+    schema:affiliation lotr:Mordor .
+
+lotr:Eomer a lotr:Character ;
+    rdfs:label "Eomer" ;
+    foaf:givenName "Eomer" ;
+    lotr:Race  lotr:Humano ;
+    schema:birthplace lotr:Edoras ;
+    schema:affiliation lotr:Rohan .
+
+lotr:Legolas a lotr:Character ;
+    rdfs:label "Legolas" ;
+    foaf:givenName "Legolas" ;
+    schema:alternateName "Hojaverde" ;
+    lotr:Race  lotr:Elfo ;
+    schema:birthplace lotr:Mirkwood ;
+    schema:affiliation lotr:LaComunidadDelAnillo , lotr:ReinoDelBosque .
+
+lotr:Saruman a lotr:Character ;
+    rdfs:label "Saruman" ;
+    foaf:givenName "Saruman" ;
+    schema:alternateName "Curunir" , "el Blanco" ;
+    lotr:Race  lotr:Maia ;
+    schema:birthplace lotr:Valinor ;
+    schema:affiliation lotr:Isengard .
