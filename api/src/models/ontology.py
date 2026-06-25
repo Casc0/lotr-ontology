@@ -12,7 +12,7 @@ class Ontology:
         # validated by the controller
         self.g.add(subject, predicate, object)
 
-    def _get_query(self, type, subject):
+    def _get_query(self, subject, predicate, object):
         return f"""
         PREFIX lotr: <http://example.org/lotr/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
