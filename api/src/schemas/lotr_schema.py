@@ -17,7 +17,7 @@ class Race(EntityBase):
     knowsLanguage: Optional[str] = None
 
 class Place(EntityBase):
-    containedInPlace: Optional[str] = None
+    territoryOf: Optional[str] = None
 
 class Faction(EntityBase):
     leader: Optional[str] = None

@@ -33,7 +33,7 @@ ALL_PREDICATES = {
     "knowsLanguage":    PredicateInfo(SCHEMA.knowsLanguage,"literal"),
 
     # --- Place ---
-    "terretoryOf": PredicateInfo(SCHEMA.terretoryOf,"uri"),
+    "territoryOf":      PredicateInfo(SCHEMA.territoryOf,"uri"),
 
     # --- Faction ---
     "leader":           PredicateInfo(LOTR.leader,"uri"),
@@ -46,7 +46,7 @@ ALL_PREDICATES = {
 CHARACTER_ATTRS = ("label", "givenName", "familyName", "alternateName",
                    "race", "birthplace", "affiliation")
 RACE_ATTRS      = ("label", "longevity", "knowsLanguage")
-PLACE_ATTRS     = ("label", "terretoryOf")
+PLACE_ATTRS     = ("label", "territoryOf")
 FACTION_ATTRS   = ("label", "leader", "ally", "enemy")
 
 # Tipo de entidad

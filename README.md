@@ -1,4 +1,4 @@
-# Ontology LOTH
+# Ontology LOTR
 
 
 ## Install dependencies

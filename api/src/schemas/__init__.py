@@ -1,3 +1,3 @@
-from .lotr_schema import Character, Race, Place, Faction
+from .lotr_schema import EntityBase, Character, Race, Place, Faction
 
-__all__ = ["Character", "Race", "Place", "Faction"]
+__all__ = ["EntityBase", "Character", "Race", "Place", "Faction"]

@@ -30,7 +30,7 @@ lotr:race a owl:ObjectProperty ;
     rdfs:domain lotr:Character ;
     rdfs:range lotr:Race .
 
-lotr:terretoryOf a owl:ObjectProperty ;
+lotr:territoryOf a owl:ObjectProperty ;
     rdfs:label "located in" ;
     rdfs:subPropertyOf schema:location ;
     rdfs:domain lotr:Place ;
@@ -92,23 +92,23 @@ lotr:Dwarf a lotr:Race ;
 
 lotr:Edoras a lotr:Place ;
     rdfs:label "Edoras" ;
-    lotr:terretoryOf lotr:Rohan .
+    lotr:territoryOf lotr:Rohan .
 
 lotr:Shire a lotr:Place ;
     rdfs:label "The Shire" ;
-    lotr:terretoryOf lotr:FreePeoples .
+    lotr:territoryOf lotr:FreePeoples .
 
 lotr:MinasTirith a lotr:Place ;
     rdfs:label "Minas Tirith" ;
-    lotr:terretoryOf lotr:Gondor .
+    lotr:territoryOf lotr:Gondor .
 
 lotr:BlackGate a lotr:Place ;
     rdfs:label "The Black Gate" ;
-    lotr:terretoryOf lotr:Mordor .
+    lotr:territoryOf lotr:Mordor .
 
 lotr:Mirkwood a lotr:Place ;
     rdfs:label "Mirkwood" ;
-    lotr:terretoryOf lotr:WoodlandRealm .
+    lotr:territoryOf lotr:WoodlandRealm .
 
 lotr:FreePeoples a lotr:Place ;
     rdfs:label "Free Peoples" .

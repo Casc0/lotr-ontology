@@ -1,6 +1,8 @@
 from pathlib import Path
 from rdflib import Graph, URIRef, Literal
 from rdflib.query import Result
+from api.src.schemas import EntityBase, Character, Race, Place, Faction
+from api.src.constants import PredicateInfo, RDF, LOTR, CHARACTER_PREDICATES, RACE_PREDICATES, PLACE_PREDICATES, FACTION_PREDICATES
 
 class Ontology:
     def __init__(self) -> None:
@@ -10,9 +12,8 @@ class Ontology:
     def save_graph(self) -> None:
         self.g.serialize(destination="your-lotr.ttl")
 
-    def add_triple(self, subject: str, predicate: str, object: str) -> None:
-        # validated by the controller
-        self.g.add((subject, predicate, object))
+    def add_triple(self, sub: str, pred: str, obj: str) -> None:
+        self.g.add((sub, pred, obj))
 
     # QUERY DEFINITIONS
 
@@ -49,6 +50,31 @@ class Ontology:
             ?sub ?pred ?obj .
         }} """
     
+    # COMMON FUNCTIONS
+
+    def _add_entity(self, entity: EntityBase, predicates: dict[str, PredicateInfo]) -> None:
+        sub = LOTR[entity.name]
+
+        for pred_name, pred_info in predicates.items():
+            if pred_name == "label":
+                value = entity.name
+            else:
+                value = getattr(entity, pred_name, None)
+
+            if value is None:
+                continue
+
+            pred = URIRef(pred_info.predicate)
+            values = value if isinstance(value, list) else [value]
+
+            for val in values:
+                if pred_info.kind == "uri":
+                    obj = LOTR[val]
+                else:
+                    obj = Literal(val, datatype=pred_info.datatype)
+
+                self.add_triple(sub, pred, obj)
+
     # CHARACTERS
 
     def get_character_data(self, subject: str) -> Result:
@@ -67,6 +93,10 @@ class Ontology:
 
         return self.g.query(query)
     
+    def add_character(self, char: Character) -> None:
+        self.add_triple(LOTR[char.name], RDF.type, LOTR.Character)
+        self._add_entity(char, CHARACTER_PREDICATES)
+
     # FACTIONS
     
     def get_faction_data(self, subject: str) -> Result:
@@ -85,6 +115,10 @@ class Ontology:
 
         return self.g.query(query)
     
+    def add_faction(self, fact: Faction) -> None:
+        self.add_triple(LOTR[fact.name], RDF.type, LOTR.Faction)
+        self._add_entity(fact, FACTION_PREDICATES)
+    
     # PLACES
 
     def get_place_data(self, subject: str) -> Result:
@@ -102,6 +136,10 @@ class Ontology:
         query = self._get_all_by_prop_query("Place", pred_uri, obj)
 
         return self.g.query(query)
+    
+    def add_place(self, place: Place) -> None:
+        self.add_triple(LOTR[place.name], RDF.type, LOTR.Place)
+        self._add_entity(place, PLACE_PREDICATES)
 
     # RACES
 
@@ -120,3 +158,7 @@ class Ontology:
         query = self._get_all_by_prop_query("Race", pred_uri, obj)
 
         return self.g.query(query)
+    
+    def add_race(self, race: Race) -> None:
+        self.add_triple(LOTR[race.name], RDF.type, LOTR.Race)
+        self._add_entity(race, RACE_PREDICATES)
