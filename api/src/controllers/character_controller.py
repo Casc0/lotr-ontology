@@ -2,10 +2,15 @@ from api.src.models import Ontology
 from api.src.middleware.hobbit import normalize_tuples
 from api.src.constants import CHARACTER_PREDICATES
 from api.src.schemas import Character
-
+from fastapi import HTTPException
 
 def get_character(lotr: Ontology, character: str) -> list[dict[str, str]]:
-    return normalize_tuples(lotr.get_character_data(character))
+    response = lotr.get_character_data(character)
+
+    if not response:
+        raise HTTPException(status_code=404, detail=f"Character '{character}' not found")
+
+    return normalize_tuples(response)
 
 
 def get_all_characters(lotr: Ontology) -> list[dict[str, str]]:
