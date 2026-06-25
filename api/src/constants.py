@@ -24,7 +24,7 @@ ALL_PREDICATES = {
     "givenName":        PredicateInfo(FOAF.givenName,"literal"),
     "familyName":       PredicateInfo(FOAF.familyName,"literal"),
     "alternateName":    PredicateInfo(SCHEMA.alternateName,"literal"),
-    "race":             PredicateInfo(LOTR.Race,"uri"),
+    "race":             PredicateInfo(LOTR.race,"uri"),
     "birthplace":       PredicateInfo(SCHEMA.birthplace,"uri"),
     "affiliation":      PredicateInfo(SCHEMA.affiliation,"uri"),
 
@@ -33,7 +33,7 @@ ALL_PREDICATES = {
     "knowsLanguage":    PredicateInfo(SCHEMA.knowsLanguage,"literal"),
 
     # --- Place ---
-    "containedInPlace": PredicateInfo(SCHEMA.containedInPlace,"uri"),
+    "terretoryOf": PredicateInfo(SCHEMA.terretoryOf,"uri"),
 
     # --- Faction ---
     "leader":           PredicateInfo(LOTR.leader,"uri"),
@@ -46,7 +46,7 @@ ALL_PREDICATES = {
 CHARACTER_ATTRS = ("label", "givenName", "familyName", "alternateName",
                    "race", "birthplace", "affiliation")
 RACE_ATTRS      = ("label", "longevity", "knowsLanguage")
-PLACE_ATTRS     = ("label", "containedInPlace")
+PLACE_ATTRS     = ("label", "terretoryOf")
 FACTION_ATTRS   = ("label", "leader", "ally", "enemy")
 
 # Tipo de entidad
