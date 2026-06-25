@@ -26,16 +26,12 @@ async def get_a_character(name: str, request: Request) -> list[dict[str, str]]:
     ontology = request.app.state.ontology
     return get_character(ontology, name)
 
-
-# lo pense que el body traiga una tupla de tuplas o algo asi
-# para el update trae todas las tuplas y pisa los valores que tenga
-# para el add trae todas las tuplas del nuevo personaje y las agrega. Unica obligatoria es name. Ver en schema
-@router.put("/{name}")
-async def update_character(body: Character, request: Request):
-    ontology = request.app.state.ontology
-    return update_character_ctrl(ontology, body)
-
 @router.post("")
 async def add_character(body: Character, request: Request):
     ontology = request.app.state.ontology
     return add_character_ctrl(ontology, body)
+
+@router.put("/{name}")
+async def update_character(name: str, body: Character, request: Request):
+    ontology = request.app.state.ontology
+    return update_character_ctrl(ontology, name, body)

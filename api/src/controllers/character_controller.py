@@ -21,10 +21,6 @@ def get_characters_by_prop(lotr: Ontology, prop: str, value: str) -> list[dict[s
     value_type = info.kind
     return normalize_tuples(lotr.get_characters_by_prop(pred_uri, value, value_type))
 
-def update_character(lotr: Ontology, body: Character):
-    # para el update trae todas las tuplas y pisa los valores que tenga
-    pass
-
 def add_character(lotr: Ontology, body: Character):
     response = lotr.get_character_data(body.name)
     
@@ -32,4 +28,14 @@ def add_character(lotr: Ontology, body: Character):
         raise HTTPException(status_code=400, detail=f"Character '{body.name}' already exists")
     
     lotr.add_character(body)
+    lotr.save_graph()
+
+def update_character(lotr: Ontology, character: str, body: Character):
+    response = lotr.get_character_data(character)
+
+    if not response:
+        raise HTTPException(status_code=404, detail=f"Character '{character}' not found")
+    
+    body.name = character
+    lotr.update_character(body)
     lotr.save_graph()
