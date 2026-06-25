@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional
 
 class EntityBase(BaseModel):
@@ -13,7 +13,13 @@ class Character(EntityBase):
     affiliation: list[str] = []
 
 class Race(EntityBase):
-    longevity: Optional[int] = None        # int → matchea xsd:integer
+    @field_validator("longevity")
+    def not_negative(cls, value):
+        if value < 0:
+            raise ValueError("cannot be negative")
+        return value
+    
+    longevity: Optional[int] = None
     knowsLanguage: Optional[str] = None
 
 class Place(EntityBase):
