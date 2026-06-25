@@ -12,6 +12,7 @@ from api.src.schemas import Character
 
 router = APIRouter(prefix="/characters", tags=["characters"])
 
+# Depends en el tipado de props agrega una validacion llamando a la funcion de validate del middleware
 @router.get("")
 async def get_characters(request: Request, props: Annotated[tuple, Depends(validate_character_props)]) -> list[dict[str, str]]:
     prop, obj = props
