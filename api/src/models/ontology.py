@@ -31,6 +31,32 @@ class Ontology:
 
         response = self.g.query(query)
         return response
+
+    def get_all_characters_data(self) -> Result:
+        query = """
+        PREFIX lotr: <http://example.org/lotr/>
+
+        SELECT DISTINCT ?sub ?pred ?obj
+        WHERE {
+            ?sub a lotr:Character ;
+                 ?pred ?obj .
+        }"""
+        return self.g.query(query)
+    
+    def get_characters_by_prop(self, pred_uri: str, value: str, value_type: str) -> Result:
+        obj = f'"{value}"' if value_type == "literal" else f"lotr:{value}"
+
+        query = f"""
+        PREFIX lotr: <http://example.org/lotr/>
+
+        SELECT DISTINCT ?sub ?pred ?obj
+        WHERE {{
+            ?sub a lotr:Character ;
+                {pred_uri} {obj} .
+            ?sub ?pred ?obj .
+        }}"""
+        response = self.g.query(query)
+        return response
     
     def get_faction_data(self, subject: str) -> Result:
         query = self._get_query("Faction", subject)
