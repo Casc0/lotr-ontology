@@ -1,18 +1,20 @@
-from rdflib import Graph
+from pathlib import Path
+from rdflib import Graph, URIRef, Literal
+from rdflib.query import Result
 
 class Ontology:
-    def __init__(self):
+    def __init__(self) -> None:
         self.g = Graph()
-        self.g.parse("lotr.ttl")
+        self.g.parse(Path(__file__).parent / "lotr.ttl")
 
-    def save_graph(self):
+    def save_graph(self) -> None:
         self.g.serialize(destination="your-lotr.ttl")
 
-    def add_triple(self, subject, predicate, object):
+    def add_triple(self, subject: str, predicate: str, object: str) -> None:
         # validated by the controller
-        self.g.add(subject, predicate, object)
+        self.g.add((subject, predicate, object))
 
-    def _get_query(self, type, subject):
+    def _get_query(self, entity_type: str, subject: str) -> str:
         return f"""
         PREFIX lotr: <http://example.org/lotr/>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -20,29 +22,29 @@ class Ontology:
         SELECT DISTINCT ?sub ?pred ?obj
         WHERE {{
             ?sub ?pred ?obj ;
-                a lotr:{type} ;
+                a lotr:{entity_type} ;
                 rdfs:label "{subject}" .
         }} """
 
-    def get_character_data(self, subject):
+    def get_character_data(self, subject: str) -> Result:
         query = self._get_query("Character", subject)
 
         response = self.g.query(query)
         return response
     
-    def get_faction_data(self, subject):
+    def get_faction_data(self, subject: str) -> Result:
         query = self._get_query("Faction", subject)
 
         response = self.g.query(query)
         return response
     
-    def get_place_data(self, subject):
+    def get_place_data(self, subject: str) -> Result:
         query = self._get_query("Place", subject)
 
         response = self.g.query(query)
         return response
 
-    def get_race_data(self, subject):
+    def get_race_data(self, subject: str) -> Result:
         query = self._get_query("Race", subject)
 
         response = self.g.query(query)

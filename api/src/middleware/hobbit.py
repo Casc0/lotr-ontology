@@ -1,4 +1,6 @@
-def normalize_tuples(response):
+from rdflib.query import Result
+
+def normalize_tuples(response: Result) -> list[dict[str, str]]:
     tuples = []
     for row in response:
         tuples.append(
