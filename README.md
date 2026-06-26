@@ -1,6 +1,5 @@
 # Ontology LOTR
 
-
 ## Install dependencies
 
 ### Virtual Environment
@@ -23,4 +22,10 @@ python3 -m venv .venv
 ### 4. Install dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+## Open backend
+
+```bash
+uvicorn api.server:app --reload
 ```
