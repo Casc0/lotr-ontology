@@ -62,3 +62,9 @@ CHARACTER_PREDICATES = {attr: ALL_PREDICATES[attr] for attr in CHARACTER_ATTRS}
 RACE_PREDICATES      = {attr: ALL_PREDICATES[attr] for attr in RACE_ATTRS}
 PLACE_PREDICATES     = {attr: ALL_PREDICATES[attr] for attr in PLACE_ATTRS}
 FACTION_PREDICATES   = {attr: ALL_PREDICATES[attr] for attr in FACTION_ATTRS}
+
+CHARACTER_VALIDATORS = {
+    "race":        ("get_race_data",    "Race"),
+    "birthplace":  ("get_place_data",   "Birthplace"),
+    "affiliation": ("get_faction_data", "Affiliation"),  # lista
+}
