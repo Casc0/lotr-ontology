@@ -27,4 +27,9 @@ def validate_character_body(body: Character, request: Request) -> Character:
     ontology = request.app.state.ontology
     if body.race and not ontology.get_race_data(body.race):
         raise HTTPException(status_code=400, detail=f"Race: '{body.race}' invalid")
+    if body.birthplace and not ontology.get_place_data(body.birthplace):
+        raise HTTPException(status_code=400, detail=f"Birthplace: '{body.birthplace}' invalid")
+    for aff in body.affiliation:
+        if not ontology.get_faction_data(aff):
+            raise HTTPException(status_code=400, detail=f"Affiliation: '{aff}' invalid")
     return body
