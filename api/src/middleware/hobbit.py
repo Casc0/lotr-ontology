@@ -1,8 +1,8 @@
 from rdflib.query import Result
 from fastapi import HTTPException, Request
-from api.src.constants import CHARACTER_PREDICATES, CHARACTER_VALIDATORS
+from api.src.constants import CHARACTER_PREDICATES, CHARACTER_VALIDATORS, FACTION_VALIDATORS, FACTION_PREDICATES, PLACE_PREDICATES, PLACE_VALIDATORS, RACE_PREDICATES
 from typing import Optional
-from api.src.schemas import Character
+from api.src.schemas import Character, Faction, Place
 
 def normalize_tuples(response: Result) -> list[dict[str, str]]:
     tuples = []
@@ -27,6 +27,16 @@ def _validate_props(prop: Optional[str] = None, obj: Optional[str] = None, CLASS
 def validate_character_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
     return _validate_props(prop, obj, CHARACTER_PREDICATES)
 
+def validate_place_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(prop, obj, PLACE_PREDICATES)
+
+def validate_faction_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(prop, obj, FACTION_PREDICATES)
+
+def validate_race_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(prop, obj, RACE_PREDICATES)
+
+
 def _validate_body(body, request: Request, validators: dict):
     ontology = request.app.state.ontology
     for field, (method_name, label) in validators.items():
@@ -43,3 +53,9 @@ def _validate_body(body, request: Request, validators: dict):
 
 def validate_character_body(body: Character, request: Request) -> Character:
     return _validate_body(body, request, CHARACTER_VALIDATORS)
+
+def validate_place_body(body: Place, request: Request) -> Place:
+    return _validate_body(body, request, PLACE_VALIDATORS)
+
+def validate_faction_body(body: Faction, request: Request) -> Faction:
+    return _validate_body(body, request, FACTION_VALIDATORS)
