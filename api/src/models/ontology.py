@@ -21,6 +21,16 @@ class Ontology:
 
     # QUERY DEFINITIONS
 
+    def _exists_query(self, entity_type: str, subject: str) -> str:
+        return f"""
+        PREFIX lotr: <http://example.org/lotr/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+        ASK {{
+            ?sub a lotr:{entity_type} ;
+                rdfs:label "{subject}" .
+        }} """    
+
     def _get_one_query(self, entity_type: str, subject: str) -> str:
         return f"""
         PREFIX lotr: <http://example.org/lotr/>
@@ -105,6 +115,11 @@ class Ontology:
 
     # CHARACTERS
 
+    def exists_character(self, subject: str) -> bool:
+        query = self._exists_query("Character", subject)
+
+        return self.g.query(query).askAnswer
+
     def get_character_data(self, subject: str) -> Result:
         query = self._get_one_query("Character", subject)
 
@@ -129,6 +144,11 @@ class Ontology:
         self._update_entity(char, CHARACTER_PREDICATES)
 
     # FACTIONS
+
+    def exists_faction(self, subject: str) -> bool:
+        query = self._exists_query("Faction", subject)
+
+        return self.g.query(query).askAnswer
     
     def get_faction_data(self, subject: str) -> Result:
         query = self._get_one_query("Faction", subject)
@@ -155,6 +175,11 @@ class Ontology:
     
     # PLACES
 
+    def exists_place(self, subject: str) -> bool:
+        query = self._exists_query("Place", subject)
+
+        return self.g.query(query).askAnswer
+
     def get_place_data(self, subject: str) -> Result:
         query = self._get_one_query("Place", subject)
 
@@ -179,6 +204,11 @@ class Ontology:
         self._update_entity(place, PLACE_PREDICATES)
 
     # RACES
+
+    def exists_race(self, subject: str) -> bool:
+        query = self._exists_query("Race", subject)
+
+        return self.g.query(query).askAnswer
 
     def get_race_data(self, subject: str) -> Result:
         query = self._get_one_query("Race", subject)

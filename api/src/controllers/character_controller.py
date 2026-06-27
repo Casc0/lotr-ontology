@@ -5,12 +5,9 @@ from api.src.schemas import Character
 from fastapi import HTTPException
 
 def get_character(lotr: Ontology, character: str) -> list[dict[str, str]]:
-    response = lotr.get_character_data(character)
-
-    if not response:
+    if not lotr.exists_character(character):
         raise HTTPException(status_code=404, detail=f"Character '{character}' not found")
-
-    return normalize_tuples(response)
+    return normalize_tuples(lotr.get_character_data(character))
 
 def get_all_characters(lotr: Ontology) -> list[dict[str, str]]:
     return normalize_tuples(lotr.get_all_characters_data())
@@ -22,18 +19,13 @@ def get_characters_by_prop(lotr: Ontology, prop: str, value: str) -> list[dict[s
     return normalize_tuples(lotr.get_characters_by_prop(pred_uri, value, value_type))
 
 def add_character(lotr: Ontology, body: Character):
-    response = lotr.get_character_data(body.name)
-    
-    if response:
+    if lotr.exists_character(body.name):
         raise HTTPException(status_code=400, detail=f"Character '{body.name}' already exists")
-    
     lotr.add_character(body)
     lotr.save_graph()
 
 def update_character(lotr: Ontology, character: str, body: Character):
-    response = lotr.get_character_data(character)
-
-    if not response:
+    if not lotr.exists_character(character):
         raise HTTPException(status_code=404, detail=f"Character '{character}' not found")
     
     body.name = character

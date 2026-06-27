@@ -5,7 +5,7 @@ from rdflib.namespace import RDF, RDFS, FOAF, XSD
 
 # Namespaces - el resto estándar ya los trae rdflib
 LOTR = Namespace("http://example.org/lotr/")
-SCHEMA = Namespace("http://schema.org/")
+SCHEMA = Namespace("https://schema.org/")
 
 # Tipo de dato para un predicado. 
 # sintaxis: race = namedtuple('race', ['http://example.org/lotr/race', 'uri'])
@@ -64,17 +64,17 @@ PLACE_PREDICATES     = {attr: ALL_PREDICATES[attr] for attr in PLACE_ATTRS}
 FACTION_PREDICATES   = {attr: ALL_PREDICATES[attr] for attr in FACTION_ATTRS}
 
 CHARACTER_VALIDATORS = {
-    "race":        ("get_race_data",    "Race"),
-    "birthplace":  ("get_place_data",   "Birthplace"),
-    "affiliation": ("get_faction_data", "Affiliation"),
+    "race":        ("exists_race",      "Race"),
+    "birthplace":  ("exists_place",     "Birthplace"),
+    "affiliation": ("exists_faction",   "Affiliation"),
 }
 
 PLACE_VALIDATORS = {
-    "territoryOf": ("get_faction_data", "TerritoryOf"),
+    "territoryOf": ("exists_faction", "TerritoryOf"),
 }
 
 FACTION_VALIDATORS = {
-    "leader": ("get_character_data", "Leader"),
-    "ally":   ("get_faction_data",   "Ally"),
-    "enemy":  ("get_faction_data",   "Enemy"),
+    "leader": ("exists_character",  "Leader"),
+    "ally":   ("exists_faction",    "Ally"),
+    "enemy":  ("exists_faction",    "Enemy"),
 }
