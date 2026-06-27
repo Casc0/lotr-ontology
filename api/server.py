@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from api.src.routes import character_router, faction_router, place_router
+from api.src.routes import character_router, faction_router, place_router, race_router
 from api.src.models import Ontology
 
 @asynccontextmanager
@@ -18,6 +18,7 @@ app = FastAPI(
 app.include_router(character_router, prefix="/api")
 app.include_router(faction_router, prefix="/api")
 app.include_router(place_router, prefix="/api")
+app.include_router(race_router, prefix="/api")
 
 @app.get("/health")
 async def health_check() -> dict[str, str]:
