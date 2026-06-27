@@ -1,13 +1,13 @@
 # Ontology LOTR
 
-## Install dependencies
+## Setup
 
-### Virtual Environment
+### Create virtual environment
 ```bash
-python3 -m venv .venv
+make venv
 ```
 
-### Activate
+### Activate virtual environment
 
 * **Fish:**
   ```fish
@@ -19,13 +19,25 @@ python3 -m venv .venv
   source .venv/bin/activate
   ```
 
-### 4. Install dependencies
+### Install dependencies
 ```bash
-pip install -r requirements.txt
+make install
 ```
 
-## Open backend
+## Run
 
 ```bash
 make run
 ```
+
+## Reset database
+
+Restores the database to its original state from the seed file.
+
+```bash
+make reset-db
+```
+
+## Test endpoints
+
+Install the **REST Client** extension in VS Code (`humao.rest-client`), then open `requests.http` and click **Send Request** above any endpoint.
