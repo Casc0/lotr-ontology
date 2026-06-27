@@ -22,11 +22,13 @@ def add_character(lotr: Ontology, body: Character):
         raise HTTPException(status_code=400, detail=f"Character '{body.name}' already exists")
     lotr.add_character(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_character_data(body.name))
 
 def update_character(lotr: Ontology, character: str, body: Character):
     if not lotr.exists_character(character):
         raise HTTPException(status_code=404, detail=f"Character '{character}' not found")
-    
+
     body.name = character
     lotr.update_character(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_character_data(character))

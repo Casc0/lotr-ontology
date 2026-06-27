@@ -22,11 +22,13 @@ def add_faction(lotr: Ontology, body: Faction):
         raise HTTPException(status_code=400, detail=f"Faction '{body.name}' already exists")
     lotr.add_faction(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_faction_data(body.name))
 
 def update_faction(lotr: Ontology, faction: str, body: Faction):
     if not lotr.exists_faction(faction):
         raise HTTPException(status_code=404, detail=f"Faction '{faction}' not found")
-    
+
     body.name = faction
     lotr.update_faction(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_faction_data(faction))

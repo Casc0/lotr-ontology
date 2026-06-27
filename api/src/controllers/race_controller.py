@@ -22,11 +22,13 @@ def add_race(lotr: Ontology, body: Race):
         raise HTTPException(status_code=400, detail=f"Race '{body.name}' already exists")
     lotr.add_race(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_race_data(body.name))
 
 def update_race(lotr: Ontology, race: str, body: Race):
     if not lotr.exists_race(race):
         raise HTTPException(status_code=404, detail=f"Race '{race}' not found")
-    
+
     body.name = race
     lotr.update_race(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_race_data(race))

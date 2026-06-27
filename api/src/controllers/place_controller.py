@@ -22,11 +22,13 @@ def add_place(lotr: Ontology, body: Place):
         raise HTTPException(status_code=400, detail=f"Place '{body.name}' already exists")
     lotr.add_place(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_place_data(body.name))
 
 def update_place(lotr: Ontology, place: str, body: Place):
     if not lotr.exists_place(place):
         raise HTTPException(status_code=404, detail=f"Place '{place}' not found")
-    
+
     body.name = place
     lotr.update_place(body)
     lotr.save_graph()
+    return normalize_tuples(lotr.get_place_data(place))
