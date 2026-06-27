@@ -5,13 +5,15 @@ from rdflib.query import Result
 from api.src.schemas import EntityBase, Character, Race, Place, Faction
 from api.src.constants import PredicateInfo, RDF, LOTR, CHARACTER_PREDICATES, RACE_PREDICATES, PLACE_PREDICATES, FACTION_PREDICATES
 
+DB_PATH = str(Path(__file__).parent.parent / "db" / "lotr.ttl")
+
 class Ontology:
     def __init__(self) -> None:
         self.g = Graph()
-        self.g.parse(Path(__file__).parent / "lotr.ttl")
+        self.g.parse(DB_PATH)
 
     def save_graph(self) -> None:
-        self.g.serialize(destination="your-lotr.ttl")
+        self.g.serialize(destination=DB_PATH)
 
     def add_triple(self, sub: URIRef, pred: URIRef, obj: URIRef | Literal) -> None:
         self.g.add((sub, pred, obj))
