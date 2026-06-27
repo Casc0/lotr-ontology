@@ -132,8 +132,13 @@ class Ontology:
 
         return self.g.query(query)
     
-    def get_characters_by_prop(self, pred_uri: str, value: str, value_type: str) -> Result:
-        obj = f'"{value}"' if value_type == "literal" else f"lotr:{value}"
+    def get_characters_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
         query = self._get_all_by_prop_query("Character", pred_uri, obj)
 
         return self.g.query(query)
@@ -162,8 +167,13 @@ class Ontology:
 
         return self.g.query(query)
     
-    def get_factions_by_prop(self, pred_uri: str, value: str, value_type: str) -> Result:
-        obj = f'"{value}"' if value_type == "literal" else f"lotr:{value}"
+    def get_factions_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
         query = self._get_all_by_prop_query("Faction", pred_uri, obj)
 
         return self.g.query(query)
@@ -192,8 +202,13 @@ class Ontology:
 
         return self.g.query(query)
     
-    def get_places_by_prop(self, pred_uri: str, value: str, value_type: str) -> Result:
-        obj = f'"{value}"' if value_type == "literal" else f"lotr:{value}"
+    def get_places_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
         query = self._get_all_by_prop_query("Place", pred_uri, obj)
 
         return self.g.query(query)
@@ -222,8 +237,13 @@ class Ontology:
 
         return self.g.query(query)
     
-    def get_races_by_prop(self, pred_uri: str, value: str, value_type: str) -> Result:
-        obj = f'"{value}"' if value_type == "literal" else f"lotr:{value}"
+    def get_races_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
         query = self._get_all_by_prop_query("Race", pred_uri, obj)
 
         return self.g.query(query)

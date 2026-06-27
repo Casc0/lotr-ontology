@@ -15,8 +15,7 @@ def get_all_characters(lotr: Ontology) -> list[dict[str, str]]:
 def get_characters_by_prop(lotr: Ontology, prop: str, value: str) -> list[dict[str, str]]:
     info = CHARACTER_PREDICATES[prop]
     pred_uri = f"<{info.predicate}>"
-    value_type = info.kind
-    return normalize_tuples(lotr.get_characters_by_prop(pred_uri, value, value_type))
+    return normalize_tuples(lotr.get_characters_by_prop(pred_uri, value, info.kind, info.datatype))
 
 def add_character(lotr: Ontology, body: Character):
     if lotr.exists_character(body.name):

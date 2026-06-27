@@ -33,7 +33,7 @@ ALL_PREDICATES = {
     "knowsLanguage":    PredicateInfo(SCHEMA.knowsLanguage,"literal"),
 
     # --- Place ---
-    "territoryOf":      PredicateInfo(SCHEMA.territoryOf,"uri"),
+    "territoryOf":      PredicateInfo(LOTR.territoryOf,"uri"),
 
     # --- Faction ---
     "leader":           PredicateInfo(LOTR.leader,"uri"),
