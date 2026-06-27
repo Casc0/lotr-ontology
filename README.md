@@ -27,5 +27,5 @@ pip install -r requirements.txt
 ## Open backend
 
 ```bash
-uvicorn api.server:app --reload
+make run
 ```
