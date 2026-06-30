@@ -12,8 +12,8 @@ def get_place(lotr: Ontology, place: str) -> list[dict[str, str]]:
 def get_all_places(lotr: Ontology) -> list[dict[str, str]]:
     return normalize_tuples(lotr.get_all_places_data())
 
-def get_places_by_prop(lotr: Ontology, prop: str, value: str) -> list[dict[str, str]]:
-    info = PLACE_PREDICATES[prop]
+def get_places_by_prop(lotr: Ontology, pred: str, value: str) -> list[dict[str, str]]:
+    info = PLACE_PREDICATES[pred]
     pred_uri = f"<{info.predicate}>"
     return normalize_tuples(lotr.get_places_by_prop(pred_uri, value, info.kind, info.datatype))
 

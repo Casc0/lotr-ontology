@@ -9,10 +9,10 @@
 GET {{base}}/characters
 
 ### Get characters filtered by race
-GET {{base}}/characters?prop=race&obj=Hobbit
+GET {{base}}/characters?pred=race&obj=Hobbit
 
 ### Get characters filtered by affiliation
-GET {{base}}/characters?prop=affiliation&obj=FellowshipOfTheRing
+GET {{base}}/characters?pred=affiliation&obj=FellowshipOfTheRing
 
 ### Get character by name
 GET {{base}}/characters/Gandalf
@@ -78,7 +78,7 @@ Content-Type: application/json
 GET {{base}}/races
 
 ### Get races filtered by longevity
-GET {{base}}/races?prop=longevity&obj=9999
+GET {{base}}/races?pred=longevity&obj=9999
 
 ### Get race by name
 GET {{base}}/races/Hobbit
@@ -122,7 +122,7 @@ Content-Type: application/json
 GET {{base}}/places
 
 ### Get places filtered by faction
-GET {{base}}/places?prop=territoryOf&obj=Mordor
+GET {{base}}/places?pred=territoryOf&obj=Mordor
 
 ### Get place by name
 GET {{base}}/places/Shire
@@ -166,10 +166,10 @@ Content-Type: application/json
 GET {{base}}/factions
 
 ### Get factions filtered by ally
-GET {{base}}/factions?prop=ally&obj=Rohan
+GET {{base}}/factions?pred=ally&obj=Rohan
 
 ### Get factions filtered by enemy
-GET {{base}}/factions?prop=enemy&obj=Mordor
+GET {{base}}/factions?pred=enemy&obj=Mordor
 
 ### Get faction by name
 GET {{base}}/factions/FellowshipOfTheRing

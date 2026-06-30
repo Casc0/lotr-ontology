@@ -15,10 +15,10 @@ router = APIRouter(prefix="/characters", tags=["characters"])
 # Depends en el tipado de props agrega una validacion llamando a la funcion de validate del middleware
 @router.get("")
 async def get_characters(request: Request, props: Annotated[tuple[str, str], Depends(validate_character_props)]) -> list[dict[str, str]]:
-    prop, obj = props
+    pred, obj = props
     ontology = request.app.state.ontology
-    if prop and obj:
-        return get_characters_by_prop(ontology, prop, obj)
+    if pred and obj:
+        return get_characters_by_prop(ontology, pred, obj)
     return get_all_characters(ontology)
 
 @router.get("/{name}")

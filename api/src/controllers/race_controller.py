@@ -12,8 +12,8 @@ def get_race(lotr: Ontology, race: str) -> list[dict[str, str]]:
 def get_all_races(lotr: Ontology) -> list[dict[str, str]]:
     return normalize_tuples(lotr.get_all_races_data())
 
-def get_races_by_prop(lotr: Ontology, prop: str, value: str) -> list[dict[str, str]]:
-    info = RACE_PREDICATES[prop]
+def get_races_by_prop(lotr: Ontology, pred: str, value: str) -> list[dict[str, str]]:
+    info = RACE_PREDICATES[pred]
     pred_uri = f"<{info.predicate}>"
     return normalize_tuples(lotr.get_races_by_prop(pred_uri, value, info.kind, info.datatype))
 

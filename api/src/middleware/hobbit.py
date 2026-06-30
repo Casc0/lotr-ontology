@@ -16,25 +16,25 @@ def normalize_tuples(response: Result) -> list[dict[str, str]]:
         )
     return tuples
 
-def _validate_props(prop: Optional[str] = None, obj: Optional[str] = None, CLASS_SET: Optional[set] = None) -> tuple[Optional[str], Optional[str]]:
-    if (prop is None) != (obj is None):
-        raise HTTPException(status_code=400, detail="Provide both 'prop' and 'obj' or neither")
-    if prop and CLASS_SET and prop not in CLASS_SET:
-        raise HTTPException(status_code=400, detail=f"Invalid predicate: '{prop}'")
-    return prop, obj
+def _validate_props(pred: Optional[str] = None, obj: Optional[str] = None, CLASS_SET: Optional[set] = None) -> tuple[Optional[str], Optional[str]]:
+    if (pred is None) != (obj is None):
+        raise HTTPException(status_code=400, detail="Provide both 'pred' and 'obj' or neither")
+    if pred and CLASS_SET and pred not in CLASS_SET:
+        raise HTTPException(status_code=400, detail=f"Invalid predicate: '{pred}'")
+    return pred, obj
 
 
-def validate_character_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
-    return _validate_props(prop, obj, CHARACTER_PREDICATES)
+def validate_character_props(pred: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(pred, obj, CHARACTER_PREDICATES)
 
-def validate_place_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
-    return _validate_props(prop, obj, PLACE_PREDICATES)
+def validate_place_props(pred: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(pred, obj, PLACE_PREDICATES)
 
-def validate_faction_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
-    return _validate_props(prop, obj, FACTION_PREDICATES)
+def validate_faction_props(pred: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(pred, obj, FACTION_PREDICATES)
 
-def validate_race_props(prop: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
-    return _validate_props(prop, obj, RACE_PREDICATES)
+def validate_race_props(pred: Optional[str] = None, obj: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
+    return _validate_props(pred, obj, RACE_PREDICATES)
 
 
 def _validate_body(body, request: Request, validators: dict):

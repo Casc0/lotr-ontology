@@ -15,10 +15,10 @@ router = APIRouter(prefix="/places", tags=["places"])
 # Depends en el tipado de props agrega una validacion llamando a la funcion de validate del middleware
 @router.get("")
 async def get_places(request: Request, props: Annotated[tuple[str, str], Depends(validate_place_props)]) -> list[dict[str, str]]:
-    prop, obj = props
+    pred, obj = props
     ontology = request.app.state.ontology
-    if prop and obj:
-        return get_places_by_prop(ontology, prop, obj)
+    if pred and obj:
+        return get_places_by_prop(ontology, pred, obj)
     return get_all_places(ontology)
 
 @router.get("/{name}")
