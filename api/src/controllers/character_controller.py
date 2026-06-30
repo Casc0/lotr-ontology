@@ -9,13 +9,20 @@ def get_character(lotr: Ontology, character: str) -> list[dict[str, str]]:
         raise HTTPException(status_code=404, detail=f"Character '{character}' not found")
     return normalize_tuples(lotr.get_character_data(character))
 
-def get_all_characters(lotr: Ontology) -> list[dict[str, str]]:
-    return normalize_tuples(lotr.get_all_characters_data())
+def get_all_characters(lotr: Ontology, all_data: bool = True) -> list[dict[str, str]]:
+    if all_data:
+        return normalize_tuples(lotr.get_all_characters_data())
+    else:
+        return normalize_tuples(lotr.get_all_characters_labels())
 
-def get_characters_by_prop(lotr: Ontology, pred: str, value: str) -> list[dict[str, str]]:
+def get_characters_by_prop(lotr: Ontology, pred: str, value: str, all_data: bool = True) -> list[dict[str, str]]:
     info = CHARACTER_PREDICATES[pred]
     pred_uri = f"<{info.predicate}>"
-    return normalize_tuples(lotr.get_characters_by_prop(pred_uri, value, info.kind, info.datatype))
+
+    if all_data:
+        return normalize_tuples(lotr.get_characters_by_prop(pred_uri, value, info.kind, info.datatype))
+    else:
+        return normalize_tuples(lotr.get_characters_labels_by_prop(pred_uri, value, info.kind, info.datatype))
 
 def add_character(lotr: Ontology, body: Character):
     if lotr.exists_character(body.name):

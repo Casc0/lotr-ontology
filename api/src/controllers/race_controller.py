@@ -9,13 +9,19 @@ def get_race(lotr: Ontology, race: str) -> list[dict[str, str]]:
         raise HTTPException(status_code=404, detail=f"Race '{race}' not found")
     return normalize_tuples(lotr.get_race_data(race))
 
-def get_all_races(lotr: Ontology) -> list[dict[str, str]]:
-    return normalize_tuples(lotr.get_all_races_data())
+def get_all_races(lotr: Ontology, all_data: bool = True) -> list[dict[str, str]]:
+    if all_data:
+        return normalize_tuples(lotr.get_all_races_data())
+    else:
+        return normalize_tuples(lotr.get_all_races_labels())
 
-def get_races_by_prop(lotr: Ontology, pred: str, value: str) -> list[dict[str, str]]:
+def get_races_by_prop(lotr: Ontology, pred: str, value: str, all_data: bool = True) -> list[dict[str, str]]:
     info = RACE_PREDICATES[pred]
     pred_uri = f"<{info.predicate}>"
-    return normalize_tuples(lotr.get_races_by_prop(pred_uri, value, info.kind, info.datatype))
+    if all_data:
+        return normalize_tuples(lotr.get_races_by_prop(pred_uri, value, info.kind, info.datatype))
+    else:
+        return normalize_tuples(lotr.get_races_labels_by_prop(pred_uri, value, info.kind, info.datatype))
 
 def add_race(lotr: Ontology, body: Race):
     if lotr.exists_race(body.name):

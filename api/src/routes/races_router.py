@@ -14,12 +14,16 @@ router = APIRouter(prefix="/races", tags=["races"])
 
 # Depends en el tipado de props agrega una validacion llamando a la funcion de validate del middleware
 @router.get("")
-async def get_races(request: Request, props: Annotated[tuple[str, str], Depends(validate_race_props)]) -> list[dict[str, str]]:
+async def get_races(
+    request: Request,
+    props: Annotated[tuple[str, str], Depends(validate_race_props)],
+    allData: bool = True
+    ) -> list[dict[str, str]]:
     pred, obj = props
     ontology = request.app.state.ontology
     if pred and obj:
-        return get_races_by_prop(ontology, pred, obj)
-    return get_all_races(ontology)
+        return get_races_by_prop(ontology, pred, obj, allData)
+    return get_all_races(ontology, allData)
 
 @router.get("/{name}")
 async def get_a_race(name: str, request: Request) -> list[dict[str, str]]:

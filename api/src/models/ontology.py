@@ -55,6 +55,18 @@ class Ontology:
                 a lotr:{entity_type} ;
         }} """
     
+    def _get_all_labels_query(self, entity_type: str) -> str:
+        return f"""
+        PREFIX lotr: <http://example.org/lotr/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+        SELECT DISTINCT ?sub ?pred ?obj
+        WHERE {{
+            ?sub ?pred ?obj ;
+                a lotr:{entity_type} ;
+            FILTER(?pred = rdfs:label)
+        }} """
+    
     def _get_all_by_prop_query(self, entity_type: str, pred_uri: str, obj: str) -> str:
         return f"""
         PREFIX lotr: <http://example.org/lotr/>
@@ -64,6 +76,19 @@ class Ontology:
             ?sub a lotr:{entity_type} ;
                 {pred_uri} {obj} .
             ?sub ?pred ?obj .
+        }} """
+    
+    def _get_all_labels_by_prop_query(self, entity_type: str, pred_uri: str, obj: str) -> str:
+        return f"""
+        PREFIX lotr: <http://example.org/lotr/>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+        SELECT DISTINCT ?sub ?pred ?obj
+        WHERE {{
+            ?sub a lotr:{entity_type} ;
+                {pred_uri} {obj} .
+            ?sub ?pred ?obj .
+        FILTER(?pred = rdfs:label)
         }} """
     
     # COMMON FUNCTIONS
@@ -132,6 +157,11 @@ class Ontology:
 
         return self.g.query(query)
     
+    def get_all_characters_labels(self) -> Result:
+        query = self._get_all_labels_query("Character")
+
+        return self.g.query(query)
+    
     def get_characters_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
         if value_type == "uri":
             obj = f"lotr:{value}"
@@ -140,6 +170,17 @@ class Ontology:
         else:
             obj = f'"{value}"'
         query = self._get_all_by_prop_query("Character", pred_uri, obj)
+
+        return self.g.query(query)
+    
+    def get_characters_labels_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
+        query = self._get_all_labels_by_prop_query("Character", pred_uri, obj)
 
         return self.g.query(query)
     
@@ -167,6 +208,11 @@ class Ontology:
 
         return self.g.query(query)
     
+    def get_all_factions_labels(self) -> Result:
+        query = self._get_all_labels_query("Faction")
+
+        return self.g.query(query)
+    
     def get_factions_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
         if value_type == "uri":
             obj = f"lotr:{value}"
@@ -175,6 +221,17 @@ class Ontology:
         else:
             obj = f'"{value}"'
         query = self._get_all_by_prop_query("Faction", pred_uri, obj)
+
+        return self.g.query(query)
+    
+    def get_factions_labels_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
+        query = self._get_all_labels_by_prop_query("Faction", pred_uri, obj)
 
         return self.g.query(query)
     
@@ -202,6 +259,11 @@ class Ontology:
 
         return self.g.query(query)
     
+    def get_all_places_labels(self) -> Result:
+        query = self._get_all_labels_query("Place")
+
+        return self.g.query(query)
+    
     def get_places_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
         if value_type == "uri":
             obj = f"lotr:{value}"
@@ -210,6 +272,17 @@ class Ontology:
         else:
             obj = f'"{value}"'
         query = self._get_all_by_prop_query("Place", pred_uri, obj)
+
+        return self.g.query(query)
+    
+    def get_places_labels_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
+        query = self._get_all_labels_by_prop_query("Place", pred_uri, obj)
 
         return self.g.query(query)
     
@@ -237,6 +310,11 @@ class Ontology:
 
         return self.g.query(query)
     
+    def get_all_races_labels(self) -> Result:
+        query = self._get_all_labels_query("Race")
+
+        return self.g.query(query)
+    
     def get_races_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
         if value_type == "uri":
             obj = f"lotr:{value}"
@@ -245,6 +323,17 @@ class Ontology:
         else:
             obj = f'"{value}"'
         query = self._get_all_by_prop_query("Race", pred_uri, obj)
+
+        return self.g.query(query)
+    
+    def get_races_labels_by_prop(self, pred_uri: str, value: str, value_type: str, datatype=None) -> Result:
+        if value_type == "uri":
+            obj = f"lotr:{value}"
+        elif datatype:
+            obj = f'"{value}"^^<{datatype}>'
+        else:
+            obj = f'"{value}"'
+        query = self._get_all_labels_by_prop_query("Race", pred_uri, obj)
 
         return self.g.query(query)
     

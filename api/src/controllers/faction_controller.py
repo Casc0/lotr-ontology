@@ -9,13 +9,19 @@ def get_faction(lotr: Ontology, faction: str) -> list[dict[str, str]]:
         raise HTTPException(status_code=404, detail=f"Faction '{faction}' not found")
     return normalize_tuples(lotr.get_faction_data(faction))
 
-def get_all_factions(lotr: Ontology) -> list[dict[str, str]]:
-    return normalize_tuples(lotr.get_all_factions_data())
+def get_all_factions(lotr: Ontology, all_data: bool = True) -> list[dict[str, str]]:
+    if all_data:
+        return normalize_tuples(lotr.get_all_factions_data())
+    else:
+        return normalize_tuples(lotr.get_all_factions_labels())
 
-def get_factions_by_prop(lotr: Ontology, pred: str, value: str) -> list[dict[str, str]]:
+def get_factions_by_prop(lotr: Ontology, pred: str, value: str, all_data: bool = True) -> list[dict[str, str]]:
     info = FACTION_PREDICATES[pred]
     pred_uri = f"<{info.predicate}>"
-    return normalize_tuples(lotr.get_factions_by_prop(pred_uri, value, info.kind, info.datatype))
+    if all_data:
+        return normalize_tuples(lotr.get_factions_by_prop(pred_uri, value, info.kind, info.datatype))
+    else:
+        return normalize_tuples(lotr.get_factions_labels_by_prop(pred_uri, value, info.kind, info.datatype))
 
 def add_faction(lotr: Ontology, body: Faction):
     if lotr.exists_faction(body.name):

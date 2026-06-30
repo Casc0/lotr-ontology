@@ -9,13 +9,19 @@ def get_place(lotr: Ontology, place: str) -> list[dict[str, str]]:
         raise HTTPException(status_code=404, detail=f"Place '{place}' not found")
     return normalize_tuples(lotr.get_place_data(place))
 
-def get_all_places(lotr: Ontology) -> list[dict[str, str]]:
-    return normalize_tuples(lotr.get_all_places_data())
+def get_all_places(lotr: Ontology, all_data: bool = True) -> list[dict[str, str]]:
+    if all_data:
+        return normalize_tuples(lotr.get_all_places_data())
+    else:
+        return normalize_tuples(lotr.get_all_places_labels())
 
-def get_places_by_prop(lotr: Ontology, pred: str, value: str) -> list[dict[str, str]]:
+def get_places_by_prop(lotr: Ontology, pred: str, value: str, all_data: bool = True) -> list[dict[str, str]]:
     info = PLACE_PREDICATES[pred]
     pred_uri = f"<{info.predicate}>"
-    return normalize_tuples(lotr.get_places_by_prop(pred_uri, value, info.kind, info.datatype))
+    if all_data:
+        return normalize_tuples(lotr.get_places_by_prop(pred_uri, value, info.kind, info.datatype))
+    else:
+        return normalize_tuples(lotr.get_places_labels_by_prop(pred_uri, value, info.kind, info.datatype))
 
 def add_place(lotr: Ontology, body: Place):
     if lotr.exists_place(body.name):

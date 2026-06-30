@@ -8,11 +8,20 @@
 ### Get all characters
 GET {{base}}/characters
 
+### Get all characters (labels only)
+GET {{base}}/characters?allData=false
+
 ### Get characters filtered by race
 GET {{base}}/characters?pred=race&obj=Hobbit
 
+### Get characters filtered by race (labels only)
+GET {{base}}/characters?pred=race&obj=Hobbit&allData=false
+
 ### Get characters filtered by affiliation
 GET {{base}}/characters?pred=affiliation&obj=FellowshipOfTheRing
+
+### Get characters filtered by affiliation (labels only)
+GET {{base}}/characters?pred=affiliation&obj=FellowshipOfTheRing&allData=false
 
 ### Get character by name
 GET {{base}}/characters/Gandalf
@@ -77,8 +86,14 @@ Content-Type: application/json
 ### Get all races
 GET {{base}}/races
 
+### Get all races (labels only)
+GET {{base}}/races?allData=false
+
 ### Get races filtered by longevity
 GET {{base}}/races?pred=longevity&obj=9999
+
+### Get races filtered by longevity (labels only)
+GET {{base}}/races?pred=longevity&obj=9999&allData=false
 
 ### Get race by name
 GET {{base}}/races/Hobbit
@@ -121,8 +136,14 @@ Content-Type: application/json
 ### Get all places
 GET {{base}}/places
 
+### Get all places (labels only)
+GET {{base}}/places?allData=false
+
 ### Get places filtered by faction
 GET {{base}}/places?pred=territoryOf&obj=Mordor
+
+### Get places filtered by faction (labels only)
+GET {{base}}/places?pred=territoryOf&obj=Mordor&allData=false
 
 ### Get place by name
 GET {{base}}/places/Shire
@@ -165,8 +186,14 @@ Content-Type: application/json
 ### Get all factions
 GET {{base}}/factions
 
+### Get all factions (labels only)
+GET {{base}}/factions?allData=false
+
 ### Get factions filtered by ally
 GET {{base}}/factions?pred=ally&obj=Rohan
+
+### Get factions filtered by ally (labels only)
+GET {{base}}/factions?pred=ally&obj=Rohan&allData=false
 
 ### Get factions filtered by enemy
 GET {{base}}/factions?pred=enemy&obj=Mordor

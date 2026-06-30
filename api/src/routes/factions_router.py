@@ -14,12 +14,16 @@ router = APIRouter(prefix="/factions", tags=["factions"])
 
 # Depends en el tipado de props agrega una validacion llamando a la funcion de validate del middleware
 @router.get("")
-async def get_factions(request: Request, props: Annotated[tuple[str, str], Depends(validate_faction_props)]) -> list[dict[str, str]]:
+async def get_factions(
+    request: Request,
+    props: Annotated[tuple[str, str], Depends(validate_faction_props)],
+    allData: bool = True
+    ) -> list[dict[str, str]]:
     pred, obj = props
     ontology = request.app.state.ontology
     if pred and obj:
-        return get_factions_by_prop(ontology, pred, obj)
-    return get_all_factions(ontology)
+        return get_factions_by_prop(ontology, pred, obj, allData)
+    return get_all_factions(ontology, allData)
 
 @router.get("/{name}")
 async def get_a_faction(name: str, request: Request) -> list[dict[str, str]]:
